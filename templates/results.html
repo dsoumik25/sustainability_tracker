@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Sustainability Report</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      height: 100%;
+      overflow: hidden;
+      color: #fff;
+    }
+
+    #bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+      z-index: -1;
+      filter: brightness(0.4);
+    }
+
+    .results-container {
+      max-width: 500px;
+      margin: 40px auto;
+      padding: 30px 25px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      backdrop-filter: blur(25px);
+      box-shadow: 0 0 20px rgba(0, 255, 150, 0.4);
+      overflow-y: auto;
+      max-height: 90vh;
+    }
+
+    h1, h2, h3 {
+      text-align: center;
+      font-size: 1.2em;
+      margin-bottom: 12px;
+      text-shadow: 0 0 10px #00ffcc;
+    }
+
+    h2 {
+      font-size: 1em;
+    }
+
+    .chart-img, .eco-img {
+      width: 100%;
+      border-radius: 10px;
+      margin-top: 15px;
+      box-shadow: 0 0 15px #00e676;
+    }
+
+    .tips {
+      margin-top: 20px;
+    }
+
+    .tips ul {
+      padding-left: 20px;
+      font-size: 0.95em;
+    }
+
+    .tips li {
+      margin-bottom: 6px;
+    }
+
+    .download-btn {
+      display: block;
+      margin: 25px auto 0;
+      padding: 10px 20px;
+      background: #00c853;
+      color: white;
+      font-weight: bold;
+      font-size: 0.9em;
+      text-align: center;
+      border-radius: 10px;
+      text-decoration: none;
+      box-shadow: 0 0 15px #00e676;
+      transition: 0.3s;
+    }
+
+    .download-btn:hover {
+      background: #00e676;
+      box-shadow: 0 0 25px #00ffc4;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Video -->
+  <video autoplay muted loop id="bg-video">
+    <source src="{{ url_for('static', filename='nature.mp4') }}" type="video/mp4">
+  </video>
+
+  <div class="results-container">
+    <h1>Hello, {{ name }}!</h1>
+    <h2>Your Annual Footprint: {{ footprint|round(2) }} kg CO₂e</h2>
+
+    <!-- Chart Image -->
+    <img src="{{ url_for('static', filename=chart) }}" alt="Footprint Chart" class="chart-img">
+
+    <!-- Tips -->
+    <div class="tips">
+      <h3>Recommendations:</h3>
+      <ul>
+        {% for tip in tips %}
+        <li>{{ tip }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <!-- Illustration -->
+    <img src="{{ url_for('static', filename='eco_image2.png') }}" alt="Eco Image" class="eco-img">
+
+    <!-- PDF Download -->
+    <a href="/download/{{ chart_id }}" class="download-btn">📄 Download PDF Report</a>
+  </div>
+
+</body>
+</html>

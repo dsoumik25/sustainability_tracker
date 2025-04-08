@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sustainable Living Advisor</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body, html {
+      height: 100%;
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+      
+      overflow: hidden;
+    }
+
+    #bg-video {
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+      z-index: -1;
+      filter: brightness(0.5);
+    }
+
+    .form-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      max-width: 500px;
+      padding: 35px 30px;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(30px); /* Increased blur */
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(0, 255, 150, 0.4);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 1.6em;
+      color: #ffffff;
+      text-shadow: 0 0 15px #00ffcc;
+    }
+
+    input, button {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin: 12px 0;
+      border: none;
+      border-radius: 10px;
+      font-size: 1em;
+    }
+
+    input {
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+    }
+
+    input::placeholder {
+      color: #e0e0e0;
+    }
+
+    button {
+      background: #00c853;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 0 15px #00e676;
+    }
+
+    button:hover {
+      background: #00e676;
+      box-shadow: 0 0 25px #00ffc4;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Video -->
+  <video autoplay muted loop id="bg-video">
+    <source src="{{ url_for('static', filename='nature.mp4') }}" type="video/mp4">
+    Your browser does not support HTML5 video.
+  </video>
+
+  <!-- Form Box -->
+  <div class="form-container">
+    <h1>Sustainable Living Advisor</h1>
+    <form action="/submit" method="POST">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="number" name="water" step="any" placeholder="Daily water use (L)" required>
+      <input type="number" name="car" step="any" placeholder="Car travel (km/day)" required>
+      <input type="number" name="bike" step="any" placeholder="Bike travel (km/day)" required>
+      <input type="number" name="public" step="any" placeholder="Public transport (km/day)" required>
+      <input type="number" name="electricity" step="any" placeholder="Monthly electricity (kWh)" required>
+      <input type="number" name="plastic" step="any" placeholder="Weekly plastic (kg)" required>
+      <button type="submit">Analyze Footprint</button>
+    </form>
+  </div>
+
+</body>
+</html>
